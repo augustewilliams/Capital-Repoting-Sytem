@@ -1,0 +1,3 @@
+[submodule "world-db"]
+	path = world-db
+	url = C:\\world-db
