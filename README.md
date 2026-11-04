@@ -7,4 +7,6 @@ Capital City Report
 [![Releases](https://img.shields.io/github/release/<github-username>/devops/all.svg?style=flat-square)](https://github.com/<github-username>/devops/releases)
 
 
-New Develop Branch for City Report 
+# Capital Report
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/<username>/<repository>/<action name taken from main.yml>/<branch>?style=flat-square)
+
