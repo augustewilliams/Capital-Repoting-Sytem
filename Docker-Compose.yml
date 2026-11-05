@@ -6,7 +6,7 @@ services:
 
   # db is is db folder
   db:
-    build: db/.
+    build: ./world-db .
     restart: always
     ports:
       - "33060:3306"
