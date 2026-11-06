@@ -1,27 +1,26 @@
-package com.napier.sem;
+package com.napier.sem; // Change this match your exact package statement if different
 
 import java.sql.*;
 
 public class App {
+    // 1. Keep your database connection variable here at the class level
+    private Connection con = null;
+
     public static void main(String[] args) {
-        // Create new Application
+        // Create an instance of the App class
         App a = new App();
 
         // Connect to database
         a.connect();
 
+        // RUN THE REPORT METHOD HERE
+        a.getCapitalCitiesReport();
+
         // Disconnect from database
         a.disconnect();
     }
 
-    /**
-     * Connection to MySQL database.
-     */
-    private Connection con = null;
-
-    /**
-     * Connect to the MySQL database.
-     */
+    // 2. Your existing connect method should live here
     public void connect() {
         try {
             // Load Database driver
@@ -35,32 +34,57 @@ public class App {
         for (int i = 0; i < retries; ++i) {
             System.out.println("Connecting to database...");
             try {
-                // Wait a bit for db to start
+                // Wait for DB to boot
                 Thread.sleep(30000);
-                // Connect to database
+                // Connect to database using 'world'
                 con = DriverManager.getConnection("jdbc:mysql://db:3306/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             } catch (SQLException sqle) {
-                System.out.println("Failed to connect to database attempt " + Integer.toString(i));
-                System.out.println(sqle.getMessage());
+                System.out.println("Failed to connect to database attempt " + i);
             } catch (InterruptedException ie) {
-                System.out.println("Thread interrupted? Should not happen.");
+                System.out.println("Thread interrupted? Cleanup.");
             }
         }
     }
 
-    /**
-     * Disconnect from the MySQL database.
-     */
+    // 3. Your disconnect method
     public void disconnect() {
         if (con != null) {
             try {
-                // Close connection
                 con.close();
             } catch (Exception e) {
                 System.out.println("Error closing connection to database");
             }
         }
     }
+
+    // 4. THE COMPLETED REPORT METHOD (Placed inside the App class brackets!)
+    public void getCapitalCitiesReport() {
+        try {
+            Statement stmt = con.createStatement();
+
+            String strSelect = "SELECT city.Name AS CapitalCity, country.Name AS Country, city.Population " +
+                    "FROM country " +
+                    "JOIN city ON country.Capital = city.ID " +
+                    "ORDER BY city.Population DESC";
+
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            System.out.println("\n--- CAPITAL CITIES BY POPULATION (LARGEST TO LOWEST) ---");
+            System.out.printf("%-25s %-30s %-15s\n", "Capital City", "Country", "Population");
+            System.out.println("-------------------------------------------------------------------------");
+
+            while (rset.next()) {
+                String capitalCity = rset.getString("CapitalCity");
+                String country = rset.getString("Country");
+                int population = rset.getInt("Population");
+
+                System.out.printf("%-25s %-30s %,15d\n", capitalCity, country, population);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error executing SQL query: " + e.getMessage());
+        }
     }
+} // Closes the App class
