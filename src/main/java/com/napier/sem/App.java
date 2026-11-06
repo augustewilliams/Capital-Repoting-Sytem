@@ -73,7 +73,7 @@ public class App {
 
             System.out.println("\n--- CAPITAL CITIES BY POPULATION (LARGEST TO LOWEST) ---");
             System.out.printf("%-25s %-30s %-15s\n", "Capital City", "Country", "Population");
-            System.out.println("-------------------------------------------------------------------------");
+
 
             while (rset.next()) {
                 String capitalCity = rset.getString("CapitalCity");
