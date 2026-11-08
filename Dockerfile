@@ -1,4 +1,4 @@
 FROM amazoncorretto:17
-COPY ./target/CapReport-0.1.0.2.jar /tmp
+COPY ./target/CapReport-0.1.0.3.jar /tmp
 WORKDIR /tmp
-ENTRYPOINT ["java", "-jar", "CapReport-0.1.0.2.jar"]
+ENTRYPOINT ["java", "-jar", "CapReport-0.1.0.3.jar"]
