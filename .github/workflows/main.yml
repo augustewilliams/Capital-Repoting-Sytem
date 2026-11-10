@@ -3,7 +3,7 @@ on: push
 
 jobs:
   build:
-    name: Hello world action
+    name: Capital Population Decending order
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout

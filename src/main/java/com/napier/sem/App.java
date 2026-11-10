@@ -59,19 +59,19 @@ public class App {
         }
     }
 
-    // 4. THE COMPLETED REPORT METHOD (Placed inside the App class brackets!)
+    // 4. App Class Syntax
     public void getCapitalCitiesReport() {
         try {
             Statement stmt = con.createStatement();
 
-            String strSelect = "SELECT city.Name AS CapitalCity, country.Name AS Country, city.Population " +
+            String strSelect = "SELECT city.name AS CapitalCity, country.name AS Country, city.population AS Population " +
                     "FROM country " +
-                    "JOIN city ON country.Capital = city.ID " +
+                    "JOIN city ON country.capital = city.id WHERE country.continent = 'Asia' " +
                     "ORDER BY city.Population DESC";
 
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            System.out.println("\n--- CAPITAL CITIES BY POPULATION (LARGEST TO LOWEST) ---");
+            System.out.println("\n--- CAPITAL CITIES IN ASIA BY POPULATION (LARGEST TO LOWEST) ---");
             System.out.printf("%-25s %-30s %-15s\n", "Capital City", "Country", "Population");
 
 
