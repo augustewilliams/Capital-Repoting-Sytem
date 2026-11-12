@@ -64,16 +64,17 @@ public class App {
         try {
             Statement stmt = con.createStatement();
 
-            String strSelect = "SELECT city.Name AS capitalcity, country.Name AS country, city.Population AS population " +
-                    "FROM country " +
-                    "INNER JOIN city ON country.Capital = city.ID " +
+            String strSelect = "SELECT city.Name AS Capitalcity, country.Name AS Country, city.Population " +
+                    "FROM city " +
+                    "JOIN country ON city.ID = country.Capital " +
+                    "WHERE country.Continent = 'asia' " +
                     "ORDER BY city.Population DESC " +
                     "LIMIT 10";
 
 
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            System.out.println("Top N Capital Cities Worldwide by Population:(LARGEST TO LOWEST) ---");
+            System.out.println("Top N Capital Cities in Asia by Population:(LARGEST TO LOWEST) ---");
             System.out.printf("%-25s %-30s %-15s\n", "Capital City", "Country", "Population");
 
 
