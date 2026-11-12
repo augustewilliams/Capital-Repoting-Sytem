@@ -66,12 +66,14 @@ public class App {
 
             String strSelect = "SELECT city.Name AS capitalcity, country.Name AS country, city.Population AS population " +
                     "FROM country " +
-                    "JOIN city ON country.Capital = city.ID WHERE country.Region = 'Caribbean' " +
-                    "ORDER BY city.Population DESC";
+                    "INNER JOIN city ON country.Capital = city.ID " +
+                    "ORDER BY city.Population DESC " +
+                    "LIMIT 10";
+
 
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            System.out.println("\n--- CAPITAL CITIES IN THE CARIBBEAN REGION ORDERED BY POPULATION (LARGEST TO LOWEST) ---");
+            System.out.println("Top N Capital Cities Worldwide by Population:(LARGEST TO LOWEST) ---");
             System.out.printf("%-25s %-30s %-15s\n", "Capital City", "Country", "Population");
 
 
